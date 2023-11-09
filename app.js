@@ -9,7 +9,42 @@ var usersRouter = require('./routes/users');
 var FoxRouter = require('./routes/Fox');
 var boardRouter = require('./routes/board');
 var chooseRouter = require('./routes/choose');
+var resourceRouter = require('./routes/resource');
+var Fox = require("./models/Fox");
 
+
+require('dotenv').config();
+const connectionString =process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString);
+//Get the default connection
+var db = mongoose.connection;
+//Bind connection to error event
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once("open", function(){
+console.log("Connection to DB succeeded")});
+// We can seed the collection if needed on server start
+async function recreateDB(){
+// Delete everything
+await Fox.deleteMany();
+let instance1 = new Fox({Fox_color:"green", Fox_breed:'Domesticated silver fox',Fox_pric:1100});
+instance1.save().then(doc=>{
+console.log("First object saved")}
+)
+let instance2 = new Fox({Fox_color:"red", Fox_breed:'Vulpes vulpes fulva',Fox_pric:13500});
+instance2.save().then(doc=>{
+console.log("Second object saved")}
+)
+let instance3 = new Fox({Fox_color:"yellow", Fox_breed:'English Foxhound',Fox_pric:9000});
+instance3.save().then(doc=>{
+console.log("Third object saved")}
+)
+.catch(err=>{
+console.error(err)
+});
+}
+let reseed = true;
+if (reseed) {recreateDB();}
 
 var app = express();
 
@@ -28,6 +63,7 @@ app.use('/users', usersRouter);
 app.use('/Fox', FoxRouter);
 app.use('/board', boardRouter);
 app.use('/choose', chooseRouter);
+app.use('/resource',resourceRouter);
 
 
 
