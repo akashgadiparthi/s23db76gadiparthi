@@ -27,15 +27,15 @@ console.log("Connection to DB succeeded")});
 async function recreateDB(){
 // Delete everything
 await Fox.deleteMany();
-let instance1 = new Fox({Fox_color:"green", Fox_breed:'Domesticated silver fox',Fox_pric:1100});
+let instance1 = new Fox({Fox_color:"green", Fox_breed:'Domesticated silver fox',Fox_price:1100});
 instance1.save().then(doc=>{
 console.log("First object saved")}
 )
-let instance2 = new Fox({Fox_color:"red", Fox_breed:'Vulpes vulpes fulva',Fox_pric:13500});
+let instance2 = new Fox({Fox_color:"red", Fox_breed:'Vulpes vulpes fulva',Fox_price:13500});
 instance2.save().then(doc=>{
 console.log("Second object saved")}
 )
-let instance3 = new Fox({Fox_color:"yellow", Fox_breed:'English Foxhound',Fox_pric:9000});
+let instance3 = new Fox({Fox_color:"yellow", Fox_breed:'English Foxhound',Fox_price:9000});
 instance3.save().then(doc=>{
 console.log("Third object saved")}
 )

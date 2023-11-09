@@ -32,5 +32,40 @@ exports.Fox_list = async function(req, res) {
     }
     };
 
+// VIEWS
+// Handle a show all view
+exports.Fox_view_all_Page = async function(req, res) {
+    try{
+    theFox = await Fox.find();
+    res.render('Fox', { title: 'Fox Search Results', results: theFox });
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
+
+    // Handle Fox create on POST.
+    exports.Fox_create_post = async function(req, res) {
+    console.log(req.body)
+    let document = new Fox();
+    // We are looking for a body, since POST does not have query parameters.
+    // Even though bodies can be in many different formats, we will be picky
+    // and require that it be a json object
+    // {"Fox_type":"goat", "cost":12, "size":"large"}
+    document.Fox_color = req.body.Fox_color;
+    document.Fox_breed = req.body.Fox_breed;
+    document.Fox_price = req.body.Fox_price;
+    try{
+    let result = await document.save();
+    res.send(result);
+    }
+    catch(err){
+    res.status(500);
+    res.send(`{"error": ${err}}`);
+    }
+    };
+    
+
     
     
