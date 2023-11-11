@@ -12,7 +12,7 @@ router.post('/Fox', Fox_controller.Fox_create_post);
 // DELETE request to delete Fox.
 router.delete('/Fox/:id', Fox_controller.Fox_delete);
 // PUT request to update Fox.
-router.put('/Fox/:id', Fox_controller.Fox_update_put);
+router.put('/Fox/:id',express.urlencoded({extended:true}), Fox_controller.Fox_update_put);
 // GET request for one Fox.
 router.get('/Fox/:id', Fox_controller.Fox_detail);
 // GET request for list of all Fox items.
