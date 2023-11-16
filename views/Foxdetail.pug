@@ -1,0 +1,21 @@
+extends layout
+block content
+  h1= title
+  - let Foxid = toShow._id
+  - let Fox_color  = toShow.Fox_color
+  - let Fox_breed = toShow.Fox_breed
+  - let Fox_price = toShow.Fox_price
+  div
+    div.row
+      div(class='FoxAttr mr-3') Fox  ID is:
+      div #{Foxid}
+    div.row
+      div(class='FoxAttr mr-3') Fox Color   is:
+      div #{Fox_color}
+    div.row
+      div(class='FoxAttr mr-3') Fox  breed  is:
+      div #{Fox_breed}
+    div.row
+      div(class='FoxAttr mr-3') Fox  price  is:
+      div #{Fox_price}
+ 

@@ -90,6 +90,79 @@ exports.Fox_create_post = async function (req, res) {
     }
 };
 
+// Handle Fox delete on DELETE.
+exports.Fox_delete = async function(req, res) {
+    console.log("delete " + req.params.id)
+    try {
+    result = await Fox.findByIdAndDelete( req.params.id)
+    console.log("Removed " + result)
+    res.send(result)
+    } catch (err) {
+    res.status(500)
+    res.send(`{"error": Error deleting ${err}}`);
+    }
+    };
+// Handle a show one view with id specified by query
+exports.Fox_view_one_Page = async function(req, res) {
+    console.log("single view for id " + req.query.id)
+    try{
+    result = await Fox.findById( req.query.id)
+    res.render('Foxdetail',
+    { title: 'Fox Detail', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    }
+
+// Handle building the view for creating a costume.
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.Fox_create_Page = function(req, res) {
+console.log("create view")
+try{
+res.render('Foxcreate', { title: 'Fox Create'});
+}
+catch(err){
+res.status(500)
+res.send(`{'error': '${err}'}`);
+}
+};
+
+// Handle building the view for updating a costume.
+// query provides the id
+exports.Fox_update_Page = async function(req, res) {
+    console.log("update view for item "+req.query.id)
+    try{
+    let result = await Fox.findById(req.query.id)
+    res.render('Foxupdate', { title: 'Fox Update', toShow: result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+
+    // Handle a delete one view with id from query
+exports.Fox_delete_Page = async function(req, res) {
+    console.log("Delete view for id " + req.query.id)
+    try{
+    result = await Fox.findById(req.query.id)
+    res.render('Foxdelete', { title: 'Fox Delete', toShow:
+    result });
+    }
+    catch(err){
+    res.status(500)
+    res.send(`{'error': '${err}'}`);
+    }
+    };
+    
+  
+   
+    
+    
+
 
 
 

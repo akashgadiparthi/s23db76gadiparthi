@@ -1,0 +1,39 @@
+extends layout
+block content
+  h1= title
+  - let Foxid = toShow._id
+  - let Fox_color = toShow.Fox_color
+  - let Fox_breed = toShow.Fox_breed
+  - let Fox_price = toShow.Fox_price
+  div.row(class='mb-2')
+    div.mr-1 ID is
+      div #{Foxid}
+      - let actionid = "/resource/Fox/" + Foxid
+      form(id='FoxForm', action= actionid, method="PUT")
+        div.form-group
+          label.FoxAttr(for='Fox_color') Fox color
+          input#Fox_color(type='text', name='Fox_color', value= Fox_color  )
+        div.form-group
+          label.FoxAttr(for='Fox_breed') Fox breed
+          input#Fox_breed(type='text', name='Fox_breed', value= Fox_breed  )
+        div.form-group
+          label.FoxAttr(for='Fox_price') Fox price
+          input#Fox_price(type='number', name='Fox_price', value= Fox_price )
+          input(type="submit")
+  script.  
+    document.forms['Fox Form'].addEventListener('submit', (event) => {
+    event.preventDefault();
+    // TODO do something here to show user that form is being submitted
+    fetch(event.target.action, {
+    method: 'PUT',
+    body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+    }).then((resp) => {
+    return resp.json(); // or resp.text() or whatever the server sends
+    }).then((body) => {
+    alert("Update succeded")
+    // TODO handle body
+    }).catch((error) => {
+    // TODO handle error
+    alert("Update failed " + error )
+    });
+    });
