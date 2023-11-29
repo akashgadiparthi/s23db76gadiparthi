@@ -2,13 +2,18 @@ extends layout
 block content
   h1= title
   - let results1=[{Fox_color:'Green',Fox_breed:'Domesticated silver fox',Fox_price:1100},{Fox_color:'Red',Fox_breed:'Vulpes vulpes fulva',Fox_price:13500},{Fox_color:'yellow',Fox_breed:'English Foxhound',Fox_price:9000}]
+  button.btn(class="btn-primary m1-1", onclick= createdestination) CREATE A NEW PRODUCT
   div(class="container-fluid")
     div(class="row m-1")
       each item in results
-        - let destination = `/Fox/update?id=${item._id}`
-        div(class="row-sm-2", class="m-1")
-          | #{item.Fox_color}, #{item.Fox_breed}, #{item.Fox_price}
-          button.btn(class="btn-primary ml-1", onclick=`dispatch('${destination}')`) Update
+         - let detailestination = `dispatch(\"/Fox/detail?id=${item._id}\")`
+         - let updatedestination = `dispatch(\"/Fox/update?id=${item._id}\")`
+         - let deletedestination = `dispatch(\"/Fox/delete?id=${item._id}\")`
+         div(class="row-sm-2", class="m-1") #{item.Fox_color}, #{item.Fox_breed}, #{item.Fox_price}
+           button.btn(class="btn-info ml-1", onclick= detailestination) Detail
+           button.btn(class="btn-warning ml-1", onclick= updatedestination) Update
+           button.btn(class="btn-danger ml-1", onclick= deletedestination) Delete
+          
     script.
       function dispatch(path){
         window.location.href = path;
