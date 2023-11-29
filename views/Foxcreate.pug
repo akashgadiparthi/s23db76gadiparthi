@@ -10,7 +10,7 @@ block content
       input#Fox_breed(type='text', name='Fox_breed')
     div.form-group
       label.FoxAttr(for='Fox_price') Fox price
-      input#Fox_price(type='number', name='Fox_price')
+      input#Fox_price(type='number',min=4,max=50000 name='Fox_price')
       input(type="submit")
   script.
     document.forms['FoxForm'].addEventListener('submit', (event) => {
